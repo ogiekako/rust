@@ -32,7 +32,7 @@ fn main() {
 }
 
 #[test]
-fn let_test() {
+fn test_let() {
   let x = 5;
   assert_eq!(x, 5);
 
@@ -59,4 +59,29 @@ fn let_test() {
   x = 7;
   let x = x;
   assert_eq!(x, 7);
+}
+
+#[test]
+fn test_func() {
+  fn f(x: i32) -> i32 {
+    x * 2
+  }
+  assert_eq!(f(2), 4);
+
+  fn sum(x: i32, y: i32) -> i32 {
+    x + y
+  }
+  assert_eq!(sum(1,2), 3);
+
+  let f = sum;
+  assert_eq!(f(1,2), 3);
+}
+
+#[test]
+#[should_panic]
+fn test_panic() {
+  fn diverges() -> ! {
+    panic!("Good bye.");
+  }
+  diverges();
 }
