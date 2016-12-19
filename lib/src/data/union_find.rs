@@ -56,7 +56,7 @@ impl UF {
 
 #[cfg(test)]
 mod test {
-  use super::UF;
+  use self::UF;
   #[test]
   fn it_works() {
     let mut uf = UF::new(4);
@@ -72,8 +72,9 @@ mod test {
 
 // http://codeforces.com/problemset/problem/722/C
 fn main() {
+  use std::cmp;
   use std::io;
-  use UF;
+  use self::UF;
   let mut line = String::new();
   io::stdin().read_line(&mut line).unwrap();
   let words:Vec<&str> = line.split_whitespace().collect();
@@ -124,7 +125,7 @@ fn main() {
         b[r2] += b[r1];
       }
     }
-    max = std::cmp::max(max, b[uf.root(p[i])]);
+    max = cmp::max(max, b[uf.root(p[i])]);
   }
   for i in 0..n {
     println!("{}", res[i]);

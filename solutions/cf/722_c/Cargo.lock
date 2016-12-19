@@ -1,0 +1,11 @@
+[root]
+name = "722_c"
+version = "0.1.0"
+dependencies = [
+ "lib 0.1.0",
+]
+
+[[package]]
+name = "lib"
+version = "0.1.0"
+

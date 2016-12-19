@@ -1,5 +1,5 @@
 [package]
-name = "data"
+name = "adder"
 version = "0.1.0"
 authors = ["Keigo Oka <ogiekako@gmail.com>"]
 
