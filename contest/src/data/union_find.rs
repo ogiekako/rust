@@ -6,7 +6,7 @@
 /// # Examples
 ///
 /// ```
-/// use data::union_find::UF;
+/// use contest::data::union_find::UF;
 /// let mut uf = UF::new(4);
 /// uf.union(0,1);
 /// assert_eq!(2, uf.size(0));
@@ -56,7 +56,7 @@ impl UF {
 
 #[cfg(test)]
 mod test {
-  use self::UF;
+  use super::UF;
   #[test]
   fn it_works() {
     let mut uf = UF::new(4);
