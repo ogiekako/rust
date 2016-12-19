@@ -2,10 +2,10 @@
 name = "722_c"
 version = "0.1.0"
 dependencies = [
- "lib 0.1.0",
+ "contest 0.1.0",
 ]
 
 [[package]]
-name = "lib"
+name = "contest"
 version = "0.1.0"
 

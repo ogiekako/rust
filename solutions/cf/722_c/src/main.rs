@@ -1,9 +1,9 @@
-extern crate lib;
+extern crate contest;
 // http://codeforces.com/problemset/problem/722/C
 fn main() {
   use std::cmp;
   use std::io;
-  use lib::data::union_find::UF;
+  use contest::data::union_find::UF;
   let mut line = String::new();
   io::stdin().read_line(&mut line).unwrap();
   let words:Vec<&str> = line.split_whitespace().collect();
