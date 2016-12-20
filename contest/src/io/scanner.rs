@@ -25,7 +25,7 @@ impl Scanner {
     }
 
     pub fn next<T>(& mut self) -> T where T: std::str::FromStr {
-        self.wrapped::<T>().unwrap()
+        self.wrapped::<T>().expect("Fail to get next: ")
     }
 
     fn fetch_token(&mut self) -> Result<&String,&str> {

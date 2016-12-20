@@ -9,3 +9,7 @@ contest = { path = "../../../contest" }
 [[bin]]
 name="a"
 path="src/a.rs"
+
+[[bin]]
+name="b"
+path="src/b.rs"
