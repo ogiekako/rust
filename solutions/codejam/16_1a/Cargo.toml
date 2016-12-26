@@ -5,6 +5,7 @@ authors = ["Keigo Oka <ogiekako@gmail.com>"]
 
 [dependencies]
 contest = { path = "../../../contest" }
+petgraph = "0.4.1"
 
 [[bin]]
 name="a"
@@ -13,3 +14,7 @@ path="src/a.rs"
 [[bin]]
 name="b"
 path="src/b.rs"
+
+[[bin]]
+name="c"
+path="src/c.rs"
