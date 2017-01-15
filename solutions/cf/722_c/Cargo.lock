@@ -1,0 +1,11 @@
+[root]
+name = "722_c"
+version = "0.1.0"
+dependencies = [
+ "contest 0.1.0",
+]
+
+[[package]]
+name = "contest"
+version = "0.1.0"
+
