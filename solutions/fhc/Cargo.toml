@@ -1,0 +1,12 @@
+[package]
+name = "fhc"
+version = "0.1.0"
+authors = ["oka <ogiekako@gmail.com>"]
+
+[dependencies]
+contest = { path = "../../contest" }
+rand = "0.3"
+
+[[bin]]
+name="17r1_d"
+path="src/17r1/d.rs"
