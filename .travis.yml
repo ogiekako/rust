@@ -1,0 +1,10 @@
+nguage: rust
+rust:
+    - "1.7.0" # Atcoder
+    - "1.12.1" # Codeforces
+    - stable
+    - beta
+    - nightly
+matrix:
+    allow_failures:
+        - rust: nightly
