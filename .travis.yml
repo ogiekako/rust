@@ -1,4 +1,4 @@
-nguage: rust
+language: rust
 rust:
     - "1.7.0" # Atcoder
     - "1.12.1" # Codeforces
