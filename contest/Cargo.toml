@@ -1,6 +1,0 @@
-[package]
-name = "contest"
-version = "0.1.0"
-authors = ["Keigo Oka <oka@chromium.org>"]
-
-[dependencies]
