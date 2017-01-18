@@ -4,14 +4,14 @@ use contest::io::scanner::*;
 use contest::math;
 
 fn main() {
-    let mut sc = Scanner::new();
-    let t = sc.next();
+    let mut sc = Scanner::new(std::io::stdin());
+    let t = sc.next().unwrap();
     for test_case in 0..t {
-        let n = sc.next();
-        let m = sc.next();
+        let n = sc.next().unwrap();
+        let m = sc.next().unwrap();
         let mut rs = vec![0; n as usize];
         for i in 0..n {
-            rs[i as usize] = sc.next();
+            rs[i as usize] = sc.next().unwrap();
         }
         println!("Case #{}: {}", test_case + 1, solve(n, m, rs));
     }
