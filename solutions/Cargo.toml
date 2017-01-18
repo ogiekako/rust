@@ -10,3 +10,7 @@ rand = "0.3"
 [[bin]]
 name="fhc_17r1_d"
 path="fhc/17r1/d.rs"
+
+[[bin]]
+name="cf_722_c"
+path="cf/722/c.rs"

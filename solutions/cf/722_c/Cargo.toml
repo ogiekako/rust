@@ -1,7 +1,0 @@
-[package]
-name = "722_c"
-version = "0.1.0"
-authors = ["Keigo Oka <ogiekako@gmail.com>"]
-
-[dependencies]
-contest = { path = "../../../contest" }
