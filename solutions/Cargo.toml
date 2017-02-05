@@ -6,6 +6,7 @@ authors = ["oka <ogiekako@gmail.com>"]
 [dependencies]
 contest = { path = "../contest" }
 rand = "0.3"
+petgraph = "0.4.1"
 
 [[bin]]
 name="fhc_17r1_d"
@@ -14,3 +15,15 @@ path="fhc/17r1/d.rs"
 [[bin]]
 name="cf_722_c"
 path="cf/722/c.rs"
+
+[[bin]]
+name="codejam_16_1a_a"
+path="codejam/16_1a/a.rs"
+
+[[bin]]
+name="codejam_16_1a_b"
+path="codejam/16_1a/b.rs"
+
+[[bin]]
+name="codejam_16_1a_c"
+path="codejam/16_1a/c.rs"
