@@ -8,3 +8,4 @@ rust:
 matrix:
     allow_failures:
         - rust: nightly
+script: cd solutions; cargo build --verbose; cargo test --verbose
