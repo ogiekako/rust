@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-# require 'toml'  # toml-rb
-
 def mod_path(a)
 	err_msg = "File for #{a} not found"
 	if a.size == 0 then
@@ -38,7 +36,7 @@ def do_it(a)
 	end
 end
 
-usage = "Usage: ./flattener.rb package_name"
+usage = "Usage: #{__FILE__} package_name"
 
 if !ARGV[0] then
 	puts usage
@@ -46,7 +44,7 @@ if !ARGV[0] then
 end
 
 package = ARGV[0]
-puts "pub mod #{package} {"
+puts "mod #{package} {"
 do_it([])
 puts "}"
 
