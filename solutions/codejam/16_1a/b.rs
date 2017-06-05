@@ -1,16 +1,16 @@
 extern crate contest;
 
 use std::collections;
+use contest::scanner;
 
 fn main() {
-    use contest::io::scanner;
-    let mut sc = scanner::Scanner::new();
-    let t = sc.next();
+    let mut sc = scanner::new(std::io::stdin());
+    let t = sc.next().unwrap();
     for case in 0..t {
-        let n: i32 = sc.next();
+        let n: i32 = sc.next().unwrap();
         let mut s = collections::BTreeSet::new();
         for _ in 0..(2 * n - 1) * n {
-            let v: i32 = sc.next();
+            let v: i32 = sc.next().unwrap();
             if s.contains(&v) {
                 s.remove(&v);
             } else {

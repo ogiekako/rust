@@ -1,10 +1,10 @@
 extern crate contest;
 
-use contest::io::scanner::*;
+use contest::scanner;
 use contest::math;
 
 fn main() {
-    let mut sc = Scanner::new(std::io::stdin());
+    let mut sc = scanner::new(std::io::stdin());
     let t = sc.next().unwrap();
     for test_case in 0..t {
         let n = sc.next().unwrap();

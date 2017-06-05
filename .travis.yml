@@ -7,4 +7,6 @@ rust:
     - nightly
 matrix:
     allow_failures:
+        - rust: "1.7.0"
         - rust: nightly
+script: cd solutions; cargo build --verbose; cargo test --verbose

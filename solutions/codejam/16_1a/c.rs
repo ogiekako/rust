@@ -2,20 +2,20 @@ extern crate contest;
 extern crate petgraph;
 
 fn main() {
-    use contest::io::scanner;
+    use contest::scanner;
     use petgraph::graph::Graph;
     use std::cmp::max;
-    let mut sc = scanner::Scanner::new();
-    let t = sc.next();
+    let mut sc = scanner::new(std::io::stdin());
+    let t = sc.next().unwrap();
     for case in 0..t {
-        let n: i32 = sc.next();
+        let n: i32 = sc.next().unwrap();
         let mut graph = Graph::<(), ()>::new();
         let mut nodes = std::vec::Vec::new();
         for _ in 0..n {
             nodes.push(graph.add_node(()));
         }
         for i in 0..n {
-            let bbf: usize = sc.next();
+            let bbf: usize = sc.next().unwrap();
             graph.add_edge(nodes[i as usize], nodes[bbf - 1], ());
         }
         let scc = petgraph::algo::tarjan_scc(&graph);
