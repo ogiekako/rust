@@ -1,0 +1,14 @@
+[package]
+name = "arc075"
+version = "0.1.0"
+authors = ["Keigo Oka <ogiekako@gmail.com>"]
+
+[dependencies]
+
+[[bin]]
+name = "c"
+path = "src/c.rs"
+
+[[bin]]
+name = "f"
+path = "src/f.rs"
