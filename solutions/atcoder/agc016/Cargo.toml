@@ -1,0 +1,10 @@
+[package]
+name = "agc016"
+version = "0.1.0"
+authors = ["Keigo Oka <ogiekako@gmail.com>"]
+
+[dependencies]
+
+[[bin]]
+name="a"
+path="src/a.rs"
