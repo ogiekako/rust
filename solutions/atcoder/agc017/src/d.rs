@@ -3,11 +3,11 @@ use std::io::BufRead;
 
 fn main() {
     let mut sc = Scanner::new(std::io::stdin());
-    let n: usize = sc.next().unwrap();
+    let n: usize = sc.next();
     let mut graph: Vec<Vec<usize>> = vec![vec![]; n];
     for _ in 1..n {
-        let mut x: usize = sc.next().unwrap();
-        let mut y: usize = sc.next().unwrap();
+        let mut x: usize = sc.next();
+        let mut y: usize = sc.next();
         x -= 1;
         y -= 1;
         graph[x].push(y);
@@ -34,8 +34,8 @@ fn recur(graph: &Vec<Vec<usize>>, i: usize, p: usize) -> usize {
 /// use contest::io::scanner;
 /// let mut sc = scanner::Scanner::new("1 2 \n\n \r\t \n 3.5".as_bytes());
 /// assert_eq!("1".to_string(), sc.next::<String>().unwrap());
-/// assert_eq!(2, sc.next().unwrap());
-/// assert_eq!(3.5, sc.next().unwrap());
+/// assert_eq!(2, sc.next());
+/// assert_eq!(3.5, sc.next());
 /// assert_eq!(None, sc.next::<i32>());
 /// ```
 

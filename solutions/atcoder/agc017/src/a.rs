@@ -3,12 +3,12 @@ use std::io::BufRead;
 
 fn main() {
     let mut sc = Scanner::new(std::io::stdin());
-    let n: usize = sc.next().unwrap();
-    let p: usize = sc.next().unwrap();
+    let n: usize = sc.next();
+    let p: usize = sc.next();
     let mut n0: u64 = 1;
     let mut n1: u64 = 0;
     for _ in 0..n {
-        let i: usize = sc.next().unwrap();
+        let i: usize = sc.next();
         if i % 2 == 0 {
             n0 *= 2;
             n1 *= 2;
@@ -28,8 +28,8 @@ fn main() {
 /// use contest::io::scanner;
 /// let mut sc = scanner::Scanner::new("1 2 \n\n \r\t \n 3.5".as_bytes());
 /// assert_eq!("1".to_string(), sc.next::<String>().unwrap());
-/// assert_eq!(2, sc.next().unwrap());
-/// assert_eq!(3.5, sc.next().unwrap());
+/// assert_eq!(2, sc.next());
+/// assert_eq!(3.5, sc.next());
 /// assert_eq!(None, sc.next::<i32>());
 /// ```
 

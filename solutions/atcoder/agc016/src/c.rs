@@ -3,10 +3,10 @@ use std::io::BufRead;
 
 fn main() {
     let mut sc = Scanner::new(std::io::stdin());
-    let H: usize = sc.next().unwrap();
-    let W: usize = sc.next().unwrap();
-    let h: usize = sc.next().unwrap();
-    let w: usize = sc.next().unwrap();
+    let H: usize = sc.next();
+    let W: usize = sc.next();
+    let h: usize = sc.next();
+    let w: usize = sc.next();
     let res = f(H, W, h, w);
     if let Some(res) = res {
         println!("Yes");
@@ -63,8 +63,8 @@ fn f(H: usize, W: usize, h: usize, w: usize) -> Option<Vec<Vec<i32>>> {
 /// use contest::io::scanner;
 /// let mut sc = scanner::Scanner::new("1 2 \n\n \r\t \n 3.5".as_bytes());
 /// assert_eq!("1".to_string(), sc.next::<String>().unwrap());
-/// assert_eq!(2, sc.next().unwrap());
-/// assert_eq!(3.5, sc.next().unwrap());
+/// assert_eq!(2, sc.next());
+/// assert_eq!(3.5, sc.next());
 /// assert_eq!(None, sc.next::<i32>());
 /// ```
 

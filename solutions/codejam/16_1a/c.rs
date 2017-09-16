@@ -6,16 +6,16 @@ fn main() {
     use petgraph::graph::Graph;
     use std::cmp::max;
     let mut sc = scanner::new(std::io::stdin());
-    let t = sc.next().unwrap();
+    let t = sc.next();
     for case in 0..t {
-        let n: i32 = sc.next().unwrap();
+        let n: i32 = sc.next();
         let mut graph = Graph::<(), ()>::new();
         let mut nodes = std::vec::Vec::new();
         for _ in 0..n {
             nodes.push(graph.add_node(()));
         }
         for i in 0..n {
-            let bbf: usize = sc.next().unwrap();
+            let bbf: usize = sc.next();
             graph.add_edge(nodes[i as usize], nodes[bbf - 1], ());
         }
         let scc = petgraph::algo::tarjan_scc(&graph);
@@ -28,7 +28,7 @@ fn main() {
             match sz {
                 1 => {
                     let nix = nixs[0];
-                    let to = graph.neighbors(nix).next().unwrap().index();
+                    let to = graph.neighbors(nix).next().index();
                     dp[to] = max(dp[to], dp[nix.index()] + 1);
                 }
                 2 => {

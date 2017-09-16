@@ -5,12 +5,12 @@ use contest::scanner;
 
 fn main() {
     let mut sc = scanner::new(std::io::stdin());
-    let t = sc.next().unwrap();
+    let t = sc.next();
     for case in 0..t {
-        let n: i32 = sc.next().unwrap();
+        let n: i32 = sc.next();
         let mut s = collections::BTreeSet::new();
         for _ in 0..(2 * n - 1) * n {
-            let v: i32 = sc.next().unwrap();
+            let v: i32 = sc.next();
             if s.contains(&v) {
                 s.remove(&v);
             } else {

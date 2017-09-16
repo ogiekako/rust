@@ -5,13 +5,13 @@ use contest::math;
 
 fn main() {
     let mut sc = scanner::new(std::io::stdin());
-    let t = sc.next().unwrap();
+    let t = sc.next();
     for test_case in 0..t {
-        let n = sc.next().unwrap();
-        let m = sc.next().unwrap();
+        let n = sc.next();
+        let m = sc.next();
         let mut rs = vec![0; n as usize];
         for i in 0..n {
-            rs[i as usize] = sc.next().unwrap();
+            rs[i as usize] = sc.next();
         }
         println!("Case #{}: {}", test_case + 1, solve(n, m, rs));
     }

@@ -3,7 +3,7 @@ use std::io::BufRead;
 
 fn main() {
     let mut sc = Scanner::new(std::io::stdin());
-    let d:i64 = sc.next().unwrap();
+    let d:i64 = sc.next();
     let mut res:i64 = 0;
     for len in 2..19 {
         res += solve(len, d);
@@ -87,8 +87,8 @@ fn solve(len: i32, d: i64) -> i64 {
 /// use contest::io::scanner;
 /// let mut sc = scanner::Scanner::new("1 2 \n\n \r\t \n 3.5".as_bytes());
 /// assert_eq!("1".to_string(), sc.next::<String>().unwrap());
-/// assert_eq!(2, sc.next().unwrap());
-/// assert_eq!(3.5, sc.next().unwrap());
+/// assert_eq!(2, sc.next());
+/// assert_eq!(3.5, sc.next());
 /// assert_eq!(None, sc.next::<i32>());
 /// ```
 

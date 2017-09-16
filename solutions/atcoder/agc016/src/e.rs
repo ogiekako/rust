@@ -3,12 +3,12 @@ use std::io::BufRead;
 
 fn main() {
     let mut sc = Scanner::new(std::io::stdin());
-    let n: usize = sc.next().unwrap();
-    let m: usize = sc.next().unwrap();
+    let n: usize = sc.next();
+    let m: usize = sc.next();
     let mut xy: Vec<(usize, usize)> = vec![];
     for _ in 0..m {
-        let x: usize = sc.next().unwrap();
-        let y: usize = sc.next().unwrap();
+        let x: usize = sc.next();
+        let y: usize = sc.next();
         xy.push((x - 1, y - 1));
     }
     let mut bads = vec![false; n];
@@ -59,8 +59,8 @@ fn main() {
 /// use contest::io::scanner;
 /// let mut sc = scanner::Scanner::new("1 2 \n\n \r\t \n 3.5".as_bytes());
 /// assert_eq!("1".to_string(), sc.next::<String>().unwrap());
-/// assert_eq!(2, sc.next().unwrap());
-/// assert_eq!(3.5, sc.next().unwrap());
+/// assert_eq!(2, sc.next());
+/// assert_eq!(3.5, sc.next());
 /// assert_eq!(None, sc.next::<i32>());
 /// ```
 
