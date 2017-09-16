@@ -28,7 +28,7 @@ fn main() {
             match sz {
                 1 => {
                     let nix = nixs[0];
-                    let to = graph.neighbors(nix).next().index();
+                    let to = graph.neighbors(nix).next().unwrap().index();
                     dp[to] = max(dp[to], dp[nix.index()] + 1);
                 }
                 2 => {
