@@ -1,0 +1,22 @@
+[package]
+name = "arc100"
+version = "0.1.0"
+authors = ["Keigo Oka <ogiekako@gmail.com>"]
+
+[dependencies]
+
+[[bin]]
+name = "c"
+path = "src/c.rs"
+
+[[bin]]
+name = "d"
+path = "src/d.rs"
+
+[[bin]]
+name = "e"
+path = "src/e.rs"
+
+[[bin]]
+name = "f"
+path = "src/f.rs"
