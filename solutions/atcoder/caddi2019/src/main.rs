@@ -9,9 +9,9 @@ const N: usize = 1000;
 const M: usize = 100000;
 
 // params
-const RAD: f32 = 1.0; // r
+const RAD: f32 = 0.0; // r
 const RAD2: f32 = 0.0; // r * r
-const NEXT_FRIEND: f32 = 0.2; // EDGE * NEXT_FRIEND
+const NEXT_FRIEND: f32 = 0.1; // EDGE * NEXT_FRIEND
 const EDGE: f32 = 1.0;
 const EDGE_R: f32 = 0.0;
 const POINT: f32 = 1.0;
@@ -19,7 +19,11 @@ const POINT: f32 = 1.0;
 const ALLOWED_DELAY: usize = 5; // if exceeds, force to put.
 const DELAY_COUNT: usize = 10;
 
-const MAX_WALK: i32 = 1;
+const MAX_WALK: i32 = 2;
+
+const MAX_R: i32 = 200;
+
+const RAND_ITER: usize = 1000;
 
 struct Solver {
     vs: Vec<V>,
@@ -29,6 +33,8 @@ struct Solver {
 
     timer: std::time::SystemTime,
     tle: Duration,
+
+    rand: Box<FnMut()->u32>,
 }
 
 impl Solver {
@@ -121,6 +127,47 @@ impl Solver {
         let mut best_score = 0;
         let mut best_score_cands = vec![]; // points
 
+        let mut fav = vec![];
+        let e_len = v.es.len();
+        for j in 0..e_len {
+            let e = &v.es[j];
+            let mut u = &self.vs[e.to];
+            if u.is_used() {
+                fav.push(j);
+            }
+        }
+        // if fav.len() > 1 {
+        //     let n = fav.len();
+        //     // eprintln!("fav: {}", n);
+        //     for jj in 0..n {
+        //         for kk in 0..jj {
+        //             let ej = &v.es[jj];
+        //             let ek = &v.es[kk];
+
+        //             let pj = self.vs[ej.to].p;
+        //             let pk = self.vs[ek.to].p;
+        //             
+        //             let mut rj = self.vs[ej.to].r;
+        //             let mut rk = self.vs[ek.to].r;
+
+        //             let cj = ej.c;
+        //             let ck = ek.c;
+
+        //             let r = v.r;
+
+        //             if pj.dist2(pk) > (cj + ck) * (cj + ck) {
+        //                 continue;
+        //             }
+        //             let dir = pk - pj;
+        //             if pj.dist2(pk) <= (r + r + rj + rk) * (r + r + rj + rk) {
+        //                 // do nothing.
+        //             } else {
+        //                 rj = ej.c - r;
+        //             }
+        //         }
+        //     }
+        // }
+
         // one
         for e in &v.es {
             let mut u = &self.vs[e.to];
@@ -173,12 +220,46 @@ impl Solver {
         // TODO: cosider delaying.
 
         if best_score_cands.len() > 0 {
+            // eprintln!("best_score: {}", best_score);
+            return Some(best_score_cands[0]);
+        }
+        
+        None
+    }
+    fn put_random(&mut self, i: usize) -> Option<P>{
+        let mut best_score = 0;
+        let mut best_score_cands = vec![];
+        // random
+        for _ in 0..RAND_ITER {
+            let pp = self.max - self.min;
+            let x = pp.0 / 2 - L / 2 + ((self.rand)() as i32) % L;
+            let y = pp.1 / 2 - L / 2 + ((self.rand)() as i32) % L;
+            let z = pp.2 / 2 - L / 2 + ((self.rand)() as i32) % L;
+            let pp = P(x, y, z);
+            let s = self.score_on(pp, i);
+            if s > best_score {
+                best_score = s;
+                best_score_cands.clear();
+                best_score_cands.push(pp);
+            } else if s == best_score {
+                best_score_cands.push(pp);
+            }
+        }
+
+        if best_score_cands.len() > 0 {
+            // eprintln!("rand:  best_score: {}", best_score);
             return Some(best_score_cands[0]);
         }
         None
     }
 
     fn solve(&mut self) {
+        for i in 0..N {
+            if self.vs[i].r > MAX_R {
+                self.vs[i].impossible = true;
+            }
+        }
+
         let mut ii = 0;
 
         let mut calc_pos_time = Duration::from_secs(0);
@@ -190,7 +271,7 @@ impl Solver {
             ii += 1;
             // eprintln!("solve: {} {}", ii, num_imp);
 
-            if self.timer.elapsed().unwrap() > std::time::Duration::from_millis(2500) {
+            if self.timer.elapsed().unwrap() > self.tle {
                 break;
             }
 
@@ -215,7 +296,7 @@ impl Solver {
                     break;
                 }
                 if let Some(p) = self.calc_pos(i) {
-                    // eprintln!("put {:?} to {}", p, i);
+                    // // eprintln!("put {:?} to {}", p, i);
                     self.vs[i].p = p;
                     self.used.push(i);
                     let r = self.vs[i].r;
@@ -241,12 +322,39 @@ impl Solver {
                 break;
             }
         }
+        for i in 0..N {
+            if self.vs[i].is_used() {
+                continue;
+            }
+            if let Some(p) = self.put_random(i) {
+                    self.vs[i].p = p;
+                    self.used.push(i);
+                    let r = self.vs[i].r;
+                    self.max = self.max.max(p + P(r, r, r));
+                    self.min = self.min.min(p - P(r, r, r));
+
+            }
+        }
         self.adjust();
+
         for i in 0..N {
             println!("{} {} {}", self.vs[i].p.0, self.vs[i].p.1, self.vs[i].p.2);
         }
 
-        eprintln!("pri: {:?}   put: {:?}", pri_time, calc_pos_time);
+
+        // eprintln!("pri: {:?}   put: {:?}", pri_time, calc_pos_time);
+
+        let mut used_backet = [0,0,0,0]; // 1-50, ...
+        let mut unused_backet = [0,0,0,0];
+        for i in 0..N {
+            let v = &self.vs[i];
+            if v.is_used() {
+                used_backet[((v.r-1) / 50) as usize] += 1;
+            } else {
+                unused_backet[((v.r -1) / 50) as usize] += 1;
+            }
+        }
+        // eprintln!("used: {:?},  unused: {:?}", used_backet, unused_backet);
     }
     fn adjust(&mut self) {
         for i in 0..N {
@@ -460,7 +568,9 @@ fn main() {
 
         timer: std::time::SystemTime::now(),
         tle: Duration::from_millis(tle),
+        rand: xorshift32(),
     };
+
 
     solver.solve();
 }
@@ -517,4 +627,13 @@ impl<R: io::Read> Scanner<R> {
             }
         }
     }
+}
+fn xorshift32() -> Box<FnMut() -> u32> {
+        let mut y = 2463534242 ;
+            Box::new(move || {
+                        y = y ^ (y << 13);
+                                y = y ^ (y >> 17);
+                                        y = y ^ (y << 5);
+                                                y
+                                                        })
 }
