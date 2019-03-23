@@ -1,6 +1,6 @@
 use std::f32;
 use std::io;
-use std::io::BufRead;
+use std::io::{BufRead};
 use std::ops::{Add, AddAssign, Mul, Sub, SubAssign};
 use std::time::Duration;
 
@@ -11,7 +11,7 @@ const M: usize = 100000;
 // params
 const RAD: f32 = 1.0; // r
 const RAD2: f32 = 0.0; // r * r
-const NEXT_FRIEND: f32 = 0.1; // EDGE * NEXT_FRIEND
+const NEXT_FRIEND: f32 = 0.2; // EDGE * NEXT_FRIEND
 const EDGE: f32 = 1.0;
 const EDGE_R: f32 = 0.0;
 const POINT: f32 = 1.0;
@@ -19,7 +19,7 @@ const POINT: f32 = 1.0;
 const ALLOWED_DELAY: usize = 5; // if exceeds, force to put.
 const DELAY_COUNT: usize = 10;
 
-const MAX_WALK: i32 = 10;
+const MAX_WALK: i32 = 1;
 
 struct Solver {
     vs: Vec<V>,
@@ -28,6 +28,7 @@ struct Solver {
     max: P,           // max(x+r)
 
     timer: std::time::SystemTime,
+    tle: Duration,
 }
 
 impl Solver {
@@ -187,7 +188,7 @@ impl Solver {
 
         loop {
             ii += 1;
-            eprintln!("solve: {} {}", ii, num_imp);
+            // eprintln!("solve: {} {}", ii, num_imp);
 
             if self.timer.elapsed().unwrap() > std::time::Duration::from_millis(2500) {
                 break;
@@ -426,22 +427,28 @@ fn main() {
         vs[r.from].es.push(r);
     }
 
+    let mut tle = 2500;
     if let Some(outfile) = std::env::args().nth(1) {
-        // judge
-        let mut out = Scanner::new(std::io::BufReader::new(
-            std::fs::File::open(&outfile).unwrap(),
-        ));
+        if outfile == "local" {
+            tle = 5000;
+            // local config
+        } else {
+            // judge
+            let mut out = Scanner::new(std::io::BufReader::new(
+                std::fs::File::open(&outfile).unwrap(),
+            ));
 
-        for i in 0..n {
-            vs[i].p = P(
-                out.next().unwrap(),
-                out.next().unwrap(),
-                out.next().unwrap(),
-            );
+            for i in 0..n {
+                vs[i].p = P(
+                    out.next().unwrap(),
+                    out.next().unwrap(),
+                    out.next().unwrap(),
+                );
+            }
+            let res = score(&vs);
+            println!("score: {}", res);
+            return;
         }
-        let res = score(&vs);
-        println!("score: {}", res);
-        return;
     }
 
     // Solver
@@ -452,6 +459,7 @@ fn main() {
         max: P(0, 0, 0),
 
         timer: std::time::SystemTime::now(),
+        tle: Duration::from_millis(tle),
     };
 
     solver.solve();
